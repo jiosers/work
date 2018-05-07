@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    	<span>用户名:</span>
+    	<input type="text" id="name" name="name" /></br>
+    	<span>密 码:</span>
+    	<input type="password" id="password" name="name" />
+    	<button onclick="login()"/>登陆</button>
+
+  </body>
+  <script type="text/javascript">
+  	function login(){
+  		let name=document.querySelector("#name").value;
+  		let password=document.querySelector("#password").value;
+  		console.log(name,"dasf",password)
+  		if(!name){
+  			alert("用户名不能为空");
+  			return;
+  		}
+  		if(!password){
+  			alert("密码不能为空");
+  			return;
+  		}
+  		fetch('/login',{
+  			method:'POST',
+				headers:{'Content-Type':'application/json'},
+				body:JSON.stringify({name:name,password:password})
+  		}).then(res=>res.json()).then(result=>{
+  			console.log(result);
+  		})
+  	}
+  </script>
+</html>
