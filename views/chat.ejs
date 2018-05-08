@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>聊天室</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css" >
+    .content{
+    	border: 1px solid #3F3F3F;
+    	padding: 10px;
+    }
+    .input{
+    	
+    }
+    </style>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+  	消息记录
+  	<div class="content">
+  		
+  	</div>
+  	<div class="input">
+  		num:<%=num%>
+  		<input type="text" id="text"/>
+  		<button onclick="send()">发送</button>
+  	</div>
+  </body>
+  <script type="text/javascript">
+  	const socket=io.connect();
+  	const list=document.querySelector(".content")
+  	let textValue=document.querySelector("#text").value;
+  	function send(){
+  		socket.emit("say",textValue);
+  	}
+  	socket.on('answer',data=>{
+  		console.log("fdaf:",data)
+  		data.forEach(val=>{
+  			let pdom=document.createElement("p");
+	  		pdom.innerText=val.name+":"+val.content+"("+val.date+")";
+	  		list.appendChild(pdom);
+  		});
+  	})
+  </script>
+</html>

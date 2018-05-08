@@ -1,16 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>首頁</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <style type="text/css" >
+	    .input{
+	    	margin: 10px;
+	    }
+    	.label{
+    		display: inline-block;
+    		width: 60px;
+    	}
+    	.control{
+    		display: inline-block;
+    	}
+    </style>
   </head>
   <body>
-    	<span>用户名:</span>
-    	<input type="text" id="name" name="name" /></br>
-    	<span>密 码:</span>
-    	<input type="password" id="password" name="name" />
-    	<button onclick="login()"/>登陆</button>
-
+  	<div class="input">
+  	
+  		(用户名:june,密码:123456。注册没写)
+  	</div>
+  	<div class="input">
+  		<span class="label">用户名:</span>
+    	<div class="control">
+    		<input type="text" id="name" name="name" /></br>
+    	</div>
+  	</div>
+  	<div class="input">
+  		<span class="label">密 码:</span>
+    	<div class="control">
+    		<input type="password" id="password" name="name" />
+    	</div>
+  	</div>
+	  <div class="input">
+	  	<button onclick="login()"/>登陆</button>
+	  </div>
   </body>
   <script type="text/javascript">
   	function login(){
@@ -30,7 +55,11 @@
 				headers:{'Content-Type':'application/json'},
 				body:JSON.stringify({name:name,password:password})
   		}).then(res=>res.json()).then(result=>{
-  			console.log(result);
+  			if(result.state===1){
+  				window.location.href="/chat"
+  			}else{
+  				alert("用户名或则密码错误")
+  			}
   		})
   	}
   </script>
