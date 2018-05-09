@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session=require("express-session")({
 	secret: 'keyboard cat',
-  	cookie: {maxAge:60*10*60 }
+  	cookie: {maxAge:60*1000*60 }
 })
 var iosession=require("express-socket.io-session")(session)
 
@@ -19,16 +19,12 @@ server.listen(8080)
 var io=require('socket.io')(server)
 io.use(iosession);
 io.on("connection",socket=>{
-	socket.on("req",(data,cb)=>{
-		console.log(data);
-		cb("我是返回的数据");
-	})
 	socket.on("say",data=>{
-		const num=++socket.handshake.session.num;
+		let messages=socket.handshake.session.message||{}
+		messages={name:'june',date:new Date(),content:data};
+		socket.handshake.session.message=messages;
 		socket.handshake.session.save();
-		/*socket.emit("answer",data+"("+new Date()+")");//每次打开都是一个新的会话*/
-		/*io.emit("answer",data+"("+new Date()+")")*///整个是一个会话   
-		io.emit("answer","num="+num);
+		io.emit("answer",socket.handshake.session.message);
 	})
 })
 // view engine setup

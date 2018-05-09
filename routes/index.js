@@ -19,8 +19,6 @@ router.post("/login",(req,res,next)=>{
 		req.session['user']={name,password};
 		state=1;
 	}
-	/*req.session.num=req.session.num||0;
-	let num=++req.session.num;*/
 	console.log("req.session:",req.session);
 	res.send({state})
 })

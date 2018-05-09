@@ -12,8 +12,8 @@
     	
     }
     </style>
-    <script src="/socket.io/socket.io.js"></script>
   </head>
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <body>
   	消息记录
   	<div class="content">
@@ -21,24 +21,22 @@
   	</div>
   	<div class="input">
   		num:<%=num%>
-  		<input type="text" id="text"/>
+  		<input type="text" class="input-value"/>
   		<button onclick="send()">发送</button>
   	</div>
   </body>
   <script type="text/javascript">
   	const socket=io.connect();
   	const list=document.querySelector(".content")
-  	let textValue=document.querySelector("#text").value;
   	function send(){
-  		socket.emit("say",textValue);
+  		let inputValue=document.querySelector(".input-value").value;
+  		console.log("inputValue:",inputValue)
+  		socket.emit("say",inputValue);
   	}
   	socket.on('answer',data=>{
-  		console.log("fdaf:",data)
-  		data.forEach(val=>{
   			let pdom=document.createElement("p");
-	  		pdom.innerText=val.name+":"+val.content+"("+val.date+")";
+	  		pdom.innerText=data.name+":"+data.content+"("+data.date+")";
 	  		list.appendChild(pdom);
-  		});
   	})
   </script>
 </html>
