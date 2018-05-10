@@ -21,7 +21,7 @@ io.use(iosession);
 io.on("connection",socket=>{
 	socket.on("say",data=>{
 		let messages=socket.handshake.session.message||{}
-		messages={name:'june',date:new Date(),content:data};
+		messages={name:socket.handshake.session.user.name,date:new Date(),content:data};
 		socket.handshake.session.message=messages;
 		socket.handshake.session.save();
 		io.emit("answer",socket.handshake.session.message);

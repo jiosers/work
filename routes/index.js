@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-let users={"june":"123456"};
+let users={"june":"123456","test":"123456"};
 router.get('/', function(req, res, next) {
 	let see=req.session;
 	if(see.user&&users[see.user.name]===see.user.password){

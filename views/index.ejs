@@ -19,7 +19,7 @@
   <body>
   	<div class="input">
   	
-  		(用户名:june,密码:123456。注册没写)
+  		(用户名:june,密码:123456。[test:123456]注册没写)
   	</div>
   	<div class="input">
   		<span class="label">用户名:</span>
@@ -52,6 +52,7 @@
   		}
   		fetch('/login',{
   			method:'POST',
+  			credentials: 'include',
 				headers:{'Content-Type':'application/json'},
 				body:JSON.stringify({name:name,password:password})
   		}).then(res=>res.json()).then(result=>{
